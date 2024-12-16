@@ -6,8 +6,7 @@ app.use(express.json());
 app.use(cors());
 app.post("/send-email", async (req, res) => {
   const { mailtext, from } = req.body;
-  console.log(from, "from");
-  console.log(req.body);
+
   const transporter = nodemailer.createTransport({
     service: "gmail", // Gmailを使用する場合
     auth: {
@@ -23,10 +22,9 @@ app.post("/send-email", async (req, res) => {
       subject: "Hassun問い合わせ",
       text: mailtext,
     });
-    console.log(data, "data");
+
     return res.status(200).send("Email sent successfully");
   } catch (error) {
-    console.log(error, "error");
     return res.status(500).send("Failed to send email");
   }
 });
