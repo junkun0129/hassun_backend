@@ -17,8 +17,8 @@ app.post("/send-email", async (req, res) => {
 
   try {
     const data = await transporter.sendMail({
-      from: process.env.EMAIL,
-      to: from,
+      from,
+      to: process.env.EMAIL,
       subject: "Hassun問い合わせ",
       text: mailtext,
       headers: {
