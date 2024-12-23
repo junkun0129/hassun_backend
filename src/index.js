@@ -1,26 +1,29 @@
-const express = require("express");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
+const express = require("express");
 const app = express();
 app.use(express.json());
 app.use(cors());
+
 app.post("/send-email", async (req, res) => {
   const { mailtext, from } = req.body;
 
   const transporter = nodemailer.createTransport({
-    service: "gmail", // Gmailを使用する場合
+    service: "gmail",
     auth: {
-      user: process.env.EMAIL, // 送信元のメールアドレス
+      user: process.env.EMAIL,
       pass: process.env.APP_PASSWORD,
     },
   });
 
   try {
     const data = await transporter.sendMail({
-      from,
-      to: process.env.EMAIL,
+      from: process.env.EMAIL,
+      to: from,
+      replyTo: from, // 返信先アドレスを設定
       subject: "Hassun問い合わせ",
       text: mailtext,
+      html: `<p>${mailtext}</p>`, // HTML形式のメール
       headers: {
         "X-Priority": "1", // 高い優先度を設定
         "X-MSMail-Priority": "High",
