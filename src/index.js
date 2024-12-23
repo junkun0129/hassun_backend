@@ -21,6 +21,11 @@ app.post("/send-email", async (req, res) => {
       to: from,
       subject: "Hassun問い合わせ",
       text: mailtext,
+      headers: {
+        "X-Priority": "1", // 高い優先度を設定
+        "X-MSMail-Priority": "High",
+        Importance: "High",
+      },
     });
 
     return res.status(200).send("Email sent successfully");
