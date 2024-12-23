@@ -10,15 +10,15 @@ app.post("/send-email", async (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail", // Gmailを使用する場合
     auth: {
-      user: "junkun0129@gmail.com",
-      pass: "ahpz icqs yklt zixl",
+      user: process.env.EMAIL, // 送信元のメールアドレス
+      pass: process.env.APP_PASSWORD,
     },
   });
 
   try {
     const data = await transporter.sendMail({
       from,
-      to: "junkun0129@gmail.com",
+      to: process.env.EMAIL,
       subject: "Hassun問い合わせ",
       text: mailtext,
     });
