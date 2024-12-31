@@ -18,8 +18,8 @@ app.post("/send-email", async (req, res) => {
 
   try {
     const data = await transporter.sendMail({
-      from: process.env.EMAIL,
-      to: from,
+      from,
+      to: process.env.EMAIL,
       replyTo: from, // 返信先アドレスを設定
       subject: "Hassun問い合わせ",
       text: mailtext,
